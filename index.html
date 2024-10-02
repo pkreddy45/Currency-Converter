@@ -6,112 +6,98 @@
     <title>Currency Converter</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-image: url('/static/Background_Photo.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            background-image: url('static/Background_Photo.jpg');
+            background-size: cover;
+            background-position: center;
         }
 
-        .converter-container {
-            background-color: rgba(255, 255, 255, 0.85);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             width: 100%;
+            max-width: 450px;
+            text-align: center;
         }
 
         h1 {
-            text-align: center;
             color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
         }
 
         form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            margin-top: 20px;
         }
 
-        label {
-            font-weight: bold;
-            color: #333;
+        input {
+            width: calc(100% - 24px);
+            padding: 10px 12px;
+            margin: 10px auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+            display: block; 
         }
 
-        /* Hide number input spinners */
-        input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        input[type="number"] {
-            -moz-appearance: textfield; /* For Firefox */
-        }
-
-        input[type="number"], input[type="text"] {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
+        input:focus {
+            border-color: #007bff;
+            outline: none;
         }
 
         button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: #fff;
+            width: calc(100% - 24px);
+            padding: 12px;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 8px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.1em;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            display: block;
+            margin: 10px auto; 
         }
 
         button:hover {
-            background-color: #218838;
+            background-color: #0056b3;
         }
 
-        .result {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .result h2 {
-            font-size: 20px;
+        h2 {
             color: #333;
-        }
-
-        .result h2 span {
-            color: #28a745;
+            margin-top: 20px;
+            font-size: 1.2em;
         }
     </style>
 </head>
 <body>
-    <div class="converter-container">
+    <div class="container">
         <h1>Currency Converter</h1>
-
+        
         <form method="POST">
             <label for="amount">Amount:</label>
-            <input type="number" name="amount" required placeholder="Enter amount in USD">
-
-            <label for="target_currency">Convert to (Currency Code):</label>
-            <input type="text" name="target_currency" required placeholder="e.g. EUR, INR">
-
+            <input type="number" name="amount" required step="0.01" min="0" placeholder="Enter amount">
+            
+            <label for="source_currency">From (Currency Code):</label>
+            <input type="text" name="source_currency" required placeholder="e.g., USD">
+            
+            <label for="target_currency">To (Currency Code):</label>
+            <input type="text" name="target_currency" required placeholder="e.g., EUR">
+            
             <button type="submit">Convert</button>
         </form>
 
         <!-- Display the converted amount if available -->
-        <div class="result">
-            {% if converted_amount %}
-                <h2>Converted Amount: <span>{{ converted_amount }} {{ target_currency }}</span></h2>
-            {% endif %}
-        </div>
+        {% if converted_amount %}
+            <h2>Converted Amount: {{ converted_amount }} {{ target_currency }}</h2>
+        {% endif %}
     </div>
 </body>
 </html>
